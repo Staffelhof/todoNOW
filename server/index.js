@@ -1,1 +1,1 @@
-require( './express.js' );
+require('./express');
