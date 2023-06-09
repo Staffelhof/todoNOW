@@ -13,4 +13,4 @@ fields:
 * string `name`
 * string `text`;
 * boolean (1/0) `completed`;
-* datetime in format yyyymmddHHMM `startTime`, `endTime`
+* datetime in string (conversion done in client app) `startTime`, `endTime`

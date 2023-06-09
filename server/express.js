@@ -4,7 +4,7 @@ const path = require('path');
 const CsvDB = require('csv-db');
 
 const notesDB = new CsvDB('./server/notesDB.csv');
-// const tasksDB = new CsvDB('./server/tasksDB.csv');
+const tasksDB = new CsvDB('./server/tasksDB.csv');
 
 // создание express приложения
 const app = express();
@@ -74,6 +74,36 @@ app.delete('/note/:id', (req, res) => {
     res.status(500).json({ error: err });
   });
 });
+
+// get tasks
+// get task by id
+
+// new task
+// curl -X POST -H "Content-Type: application/json" -d '{"name":"Your task description","text":"task text","completed":0,"startTime":"202306061200","endTime":"202307061200"}' http://localhost:9000/tasks
+app.post('/tasks', (req, res) => {
+  const name = req.body.name;
+
+  // validate if fields are not empty
+  if (!(req.body.name && req.body.text && req.body.completed !== null && req.body.startTime && req.body.endTime)) {
+    res.status(500).json({ error: 'some fields are missing in body' });
+    return false;
+  }
+  const newTask = {
+    name: req.body.name,
+    text: req.body.text,
+    completed: req.body.completed,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+  }
+  tasksDB.insert(newTask).then( (task) => {
+    res.status(201).json(task);
+  }, (err) => {
+    res.status(500).json({ error: 'failed to add new task' });
+  })
+});
+
+// update task
+// delete task
 
 app.use('*', (req, res) => {
 // читаем файл `index.html`
