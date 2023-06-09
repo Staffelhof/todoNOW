@@ -1,8 +1,8 @@
-#### Databases
+## Databases
 
 both DB are csv based - meaning there are no data types
 
-### notedDB.csv
+### notesDB.csv
 two field:
 * iterated int 'id'
 * string 'note'
