@@ -1,10 +1,9 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const csvDB = require('csv-db');
+const CsvDB = require('csv-db');
 
-const notesDB = new csvDB('./server/tasksDB.csv')
-
+const notesDB = new CsvDB('./server/tasksDB.csv');
 
 // создание express приложения
 const app = express();
@@ -12,14 +11,14 @@ const app = express();
 // обслуживание статических ресурсов
 app.get(/\.(js|css|map|ico|png)$/, express.static(path.resolve(__dirname, '../dist')));
 
-app.use(express.json())
+app.use(express.json());
 
 // get notes, altogether or by id
 // http://localhost:9000/notes
 app.get('/notes', (req, res) => {
   notesDB.get().then((notes) => {
     res.json(notes);
-   })
+  });
 });
 
 // http://localhost:9000/note/id
@@ -27,22 +26,41 @@ app.get('/note/:id', (req, res) => {
   const noteId = req.params.id;
   notesDB.get(noteId).then((note) => {
     res.json(note);
-  })
-})
+  });
+});
 
 // new note, post request to http://localhost:9000/notes with {"note": "Note text"}
-// curl -X POST -H "Content-Type: application/json" -d '{"text":"Your task description"}' http://localhost:9000/notes
+// curl -X POST -H "Content-Type: application/json" -d '{"note":"Your task description"}' http://localhost:9000/notes
 app.post('/notes', (req, res) => {
   const newNote = {
-    text: req.body.note
-  }
+    note: req.body.note,
+  };
   notesDB.insert(newNote).then((note) => {
-    res.status(201).json(newNote);
+    res.status(201).json(note);
   }, (err) => {
-    res.status(500).json({error: "Failed to add note"})
-  })
-  })
+    res.status(500).json({ error: err });
+  });
+});
 
+// update note, patch request to http://localhost:9000/note/id with {"note": "Note new text"}
+// will say it's okay even if note id is wrong.
+// curl -X PATCH -H "Content-Type: application/json" -d '{"note":"Note new text"}' http://localhost:9000/note/id
+app.patch('/note/:id', (req, res) => {
+  const noteId = req.params.id;
+  const updatedNote = {
+    id: noteId,
+    note: req.body.note,
+  };
+  notesDB.update(updatedNote, noteId).then((note) => {
+    if (note > 0) {
+      res.json({ message: 'note updated' });
+    } else {
+      res.status(404).json({ error: 'not found' });
+    }
+  }, (err) => {
+    res.status(500).json({ error: err });
+  });
+});
 
 app.use('*', (req, res) => {
 // читаем файл `index.html`
