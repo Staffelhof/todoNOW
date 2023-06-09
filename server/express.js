@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const CsvDB = require('csv-db');
 
-const notesDB = new CsvDB('./server/tasksDB.csv');
+const notesDB = new CsvDB('./server/notesDB.csv');
+// const tasksDB = new CsvDB('./server/tasksDB.csv');
 
 // создание express приложения
 const app = express();
@@ -13,15 +14,16 @@ app.get(/\.(js|css|map|ico|png)$/, express.static(path.resolve(__dirname, '../di
 
 app.use(express.json());
 
-// get notes, altogether or by id
-// http://localhost:9000/notes
+// get all notes
+// curl http://localhost:9000/notes
 app.get('/notes', (req, res) => {
   notesDB.get().then((notes) => {
     res.json(notes);
   });
 });
 
-// http://localhost:9000/note/id
+// get note by id
+// curl http://localhost:9000/note/{id}
 app.get('/note/:id', (req, res) => {
   const noteId = req.params.id;
   notesDB.get(noteId).then((note) => {
@@ -42,9 +44,9 @@ app.post('/notes', (req, res) => {
   });
 });
 
-// update note, patch request to http://localhost:9000/note/id with {"note": "Note new text"}
+// update note, patch request to http://localhost:9000/note/{id} with {"note": "Note new text"}
 // will say it's okay even if note id is wrong.
-// curl -X PATCH -H "Content-Type: application/json" -d '{"note":"Note new text"}' http://localhost:9000/note/id
+// curl -X PATCH -H "Content-Type: application/json" -d '{"note":"Note new text"}' http://localhost:9000/note/{id}
 app.patch('/note/:id', (req, res) => {
   const noteId = req.params.id;
   const updatedNote = {
@@ -62,8 +64,8 @@ app.patch('/note/:id', (req, res) => {
   });
 });
 
-// delete note by id, delete request to http://localhost:9000/note/id
-// curl -X DELETE http://localhost:9000/note/id
+// delete note by id, delete request to http://localhost:9000/note/{id}
+// curl -X DELETE http://localhost:9000/note/{id}
 app.delete('/note/:id', (req, res) => {
   const noteId = req.params.id;
   notesDB.delete(noteId).then(() => {
