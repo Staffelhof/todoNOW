@@ -79,27 +79,24 @@ app.delete('/note/:id', (req, res) => {
 // get task by id
 
 // new task
-// curl -X POST -H "Content-Type: application/json" -d '{"name":"Your task description","text":"task text","completed":0,"startTime":"202306061200","endTime":"202307061200"}' http://localhost:9000/tasks
+// curl -X POST -H "Content-Type: application/json" -d
+// '{"name":"Your task description","text":"task text","completed":0,
+// "startTime":"202306061200","endTime":"202307061200"}'
+// http://localhost:9000/tasks
 app.post('/tasks', (req, res) => {
-  const name = req.body.name;
-
-  // validate if fields are not empty
-  if (!(req.body.name && req.body.text && req.body.completed !== null && req.body.startTime && req.body.endTime)) {
-    res.status(500).json({ error: 'some fields are missing in body' });
-    return false;
-  }
+  // validate if fields are not empty "maybe later"
   const newTask = {
     name: req.body.name,
     text: req.body.text,
     completed: req.body.completed,
     startTime: req.body.startTime,
     endTime: req.body.endTime,
-  }
-  tasksDB.insert(newTask).then( (task) => {
+  };
+  tasksDB.insert(newTask).then((task) => {
     res.status(201).json(task);
   }, (err) => {
-    res.status(500).json({ error: 'failed to add new task' });
-  })
+    res.status(500).json({ error: err });
+  });
 });
 
 // update task
