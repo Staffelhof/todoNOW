@@ -65,12 +65,13 @@ app.patch('/note/:id', (req, res) => {
 // delete note by id, delete request to http://localhost:9000/note/id
 // curl -X DELETE http://localhost:9000/note/id
 app.delete('/note/:id', (req, res) => {
-  notesDB.delete(req.params.id).then((note) => {
+  const noteId = req.params.id;
+  notesDB.delete(noteId).then(() => {
     res.json({ message: 'deleted' });
   }, (err) => {
     res.status(500).json({ error: err });
-  })
-})
+  });
+});
 
 app.use('*', (req, res) => {
 // читаем файл `index.html`
