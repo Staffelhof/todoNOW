@@ -18,7 +18,7 @@ app.use(express.json());
 // curl http://localhost:9000/notes
 app.get('/notes', (req, res) => {
   notesDB.get().then((notes) => {
-    res.json(notes);
+    res.status(200).json(notes);
   });
 });
 
@@ -27,7 +27,7 @@ app.get('/notes', (req, res) => {
 app.get('/note/:id', (req, res) => {
   const noteId = req.params.id;
   notesDB.get(noteId).then((note) => {
-    res.json(note);
+    res.status(200).json(note);
   });
 });
 
@@ -46,7 +46,7 @@ app.post('/notes', (req, res) => {
 
 /*
 update note, patch request to http://localhost:9000/note/{id} with {"note": "Note new text"}
-will say it's okay even if note id is wrong.
+will return 404 if note not found
 curl -X PATCH -H "Content-Type: application/json" -d '{"note":"Note new text"}' http://localhost:9000/note/{id}
 */
 app.patch('/note/:id', (req, res) => {
@@ -55,9 +55,13 @@ app.patch('/note/:id', (req, res) => {
     id: noteId,
     note: req.body.note,
   };
-  notesDB.update(updatedNote, noteId).then((note) => {
-    if (note > 0) { // this doesn't work :(
-      res.json({ message: 'note updated' });
+  notesDB.get(noteId).then((note) => {
+    if (note) {
+      notesDB.update(updatedNote, noteId).then(() => {
+        res.status(201).json({ note });
+      }, (err) => {
+        res.status(500).json({ error: err });
+      });
     } else {
       res.status(404).json({ error: 'not found' });
     }
@@ -66,12 +70,23 @@ app.patch('/note/:id', (req, res) => {
   });
 });
 
-// delete note by id, delete request to http://localhost:9000/note/{id}
-// curl -X DELETE http://localhost:9000/note/{id}
+/*
+delete note by id, delete request to http://localhost:9000/note/{id}
+will return 404 if note not found
+curl -X DELETE http://localhost:9000/note/{id}
+*/
 app.delete('/note/:id', (req, res) => {
   const noteId = req.params.id;
-  notesDB.delete(noteId).then(() => {
-    res.json({ message: 'deleted' });
+  notesDB.get(noteId).then((note) => {
+    if (note) {
+      notesDB.delete(noteId).then(() => {
+        res.status(200).json({ message: 'deleted' });
+      }, (err) => {
+        res.status(500).json({ error: err });
+      });
+    } else {
+      res.status(404).json({ error: 'not found' });
+    }
   }, (err) => {
     res.status(500).json({ error: err });
   });
@@ -81,7 +96,7 @@ app.delete('/note/:id', (req, res) => {
 // curl http://localhost:9000/tasks
 app.get('/tasks', (req, res) => {
   tasksDB.get().then((tasks) => {
-    res.json(tasks);
+    res.status(200).json(tasks);
   });
 });
 
@@ -90,7 +105,7 @@ app.get('/tasks', (req, res) => {
 app.get('/task/:id', (req, res) => {
   const taskId = req.params.id;
   tasksDB.get(taskId).then((task) => {
-    res.json(task);
+    res.status(200).json(task);
   });
 });
 
@@ -116,7 +131,7 @@ app.post('/tasks', (req, res) => {
 
 /*
 update task, patch request to http://localhost:9000/task/{id} with properly constructed body
-will say it's okay even if note id is wrong.
+will return 404 if task not found
 curl -X PATCH -H "Content-Type: application/json" -d '{"name":"Your task description","text":"task text","isCompleted":0, "startTime":"202306061200","endTime":"202307061200"}' http://localhost:9000/task/{id}
 */
 app.patch('/task/:id', (req, res) => {
@@ -129,19 +144,38 @@ app.patch('/task/:id', (req, res) => {
     startTime: req.body.startTime,
     endTime: req.body.endTime,
   };
-  tasksDB.update(updatedTask, taskId).then(() => {
-    res.json({ message: 'task updated' });
+  tasksDB.get(taskId).then((task) => {
+    if (task) {
+      tasksDB.update(updatedTask, taskId).then(() => {
+        res.status(201).json({ message: 'task updated' });
+      }, (err) => {
+        res.status(500).json({ error: err });
+      });
+    } else {
+      res.status(404).json({ error: 'not found' });
+    }
   }, (err) => {
     res.status(500).json({ error: err });
   });
 });
 
-// delete task by id, delete request to http://localhost:9000/task/{id}
-// curl -X DELETE http://localhost:9000/task/{id}
-app.delete('/note/:id', (req, res) => {
+/*
+delete task by id, delete request to http://localhost:9000/task/{id}
+will return 404 if no such task
+curl -X DELETE http://localhost:9000/task/{id}
+*/
+app.delete('/task/:id', (req, res) => {
   const taskId = req.params.id;
-  tasksDB.delete(taskId).then(() => {
-    res.json({ message: 'deleted' });
+  tasksDB.get(taskId).then((task) => {
+    if (task) {
+      tasksDB.delete(taskId).then(() => {
+        res.status(200).json({ message: 'deleted' });
+      }, (err) => {
+        res.status(500).json({ error: err });
+      });
+    } else {
+      res.status(404).json({ error: 'not found' });
+    }
   }, (err) => {
     res.status(500).json({ error: err });
   });
