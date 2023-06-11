@@ -44,9 +44,11 @@ app.post('/notes', (req, res) => {
   });
 });
 
-// update note, patch request to http://localhost:9000/note/{id} with {"note": "Note new text"}
-// will say it's okay even if note id is wrong.
-// curl -X PATCH -H "Content-Type: application/json" -d '{"note":"Note new text"}' http://localhost:9000/note/{id}
+/*
+update note, patch request to http://localhost:9000/note/{id} with {"note": "Note new text"}
+will say it's okay even if note id is wrong.
+curl -X PATCH -H "Content-Type: application/json" -d '{"note":"Note new text"}' http://localhost:9000/note/{id}
+*/
 app.patch('/note/:id', (req, res) => {
   const noteId = req.params.id;
   const updatedNote = {
@@ -92,11 +94,10 @@ app.get('/task/:id', (req, res) => {
   });
 });
 
-// new task - post request with properly constructed body, no validating so far
-// curl -X POST -H "Content-Type: application/json" -d
-// '{"name":"Your task description","text":"task text","isCompleted":0,
-// "startTime":"202306061200","endTime":"202307061200"}'
-// http://localhost:9000/tasks
+/*
+new task - post request with properly constructed body, no validating so far
+curl -X POST -H "Content-Type: application/json" -d '{"name":"Your task description","text":"task text","isCompleted":0, "startTime":"202306061200","endTime":"202307061200"}' http://localhost:9000/tasks
+*/
 app.post('/tasks', (req, res) => {
   // validate if fields are not empty "maybe later"
   const newTask = {
@@ -113,8 +114,38 @@ app.post('/tasks', (req, res) => {
   });
 });
 
-// update task
-// delete task
+/*
+update task, patch request to http://localhost:9000/task/{id} with properly constructed body
+will say it's okay even if note id is wrong.
+curl -X PATCH -H "Content-Type: application/json" -d '{"name":"Your task description","text":"task text","isCompleted":0, "startTime":"202306061200","endTime":"202307061200"}' http://localhost:9000/task/{id}
+*/
+app.patch('/task/:id', (req, res) => {
+  const taskId = req.params.id;
+  const updatedTask = {
+    id: taskId,
+    name: req.body.name,
+    text: req.body.text,
+    isCompleted: req.body.isCompleted,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+  };
+  tasksDB.update(updatedTask, taskId).then(() => {
+    res.json({ message: 'task updated' });
+  }, (err) => {
+    res.status(500).json({ error: err });
+  });
+});
+
+// delete task by id, delete request to http://localhost:9000/task/{id}
+// curl -X DELETE http://localhost:9000/task/{id}
+app.delete('/note/:id', (req, res) => {
+  const taskId = req.params.id;
+  tasksDB.delete(taskId).then(() => {
+    res.json({ message: 'deleted' });
+  }, (err) => {
+    res.status(500).json({ error: err });
+  });
+});
 
 app.use('*', (req, res) => {
 // читаем файл `index.html`
