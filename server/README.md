@@ -75,5 +75,5 @@ This will update specific task or return 404 if note not found
 
 #### delete note/task
 
-`DELETE` request to `http://localhost:9000/{note\task}\{id}`
+`DELETE` request to `http://localhost:9000/{note\task}/{id}`
 This will delete specific note/task or return 404 is note/task not found
