@@ -21,6 +21,8 @@ fields:
 
 ### how to use
 
+`make server-start` to launc server. It is configured to listen on localhost:9000
+
 ##### get all notes/tasks
 
 `GET` request to `http://localhost:9000/{notes/tasks}`
