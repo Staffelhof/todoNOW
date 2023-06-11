@@ -75,8 +75,22 @@ app.delete('/note/:id', (req, res) => {
   });
 });
 
-// get tasks
-// get task by id
+// get all tasks
+// curl http://localhost:9000/tasks
+app.get('/tasks', (req, res) => {
+  tasksDB.get().then((tasks) => {
+    res.json(tasks);
+  });
+});
+
+// get note by id
+// curl http://localhost:9000/task/{id}
+app.get('/task/:id', (req, res) => {
+  const taskId = req.params.id;
+  tasksDB.get(taskId).then((task) => {
+    res.json(task);
+  });
+});
 
 // new task - post request with properly constructed body, no validating so far
 // curl -X POST -H "Content-Type: application/json" -d
