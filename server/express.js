@@ -78,9 +78,9 @@ app.delete('/note/:id', (req, res) => {
 // get tasks
 // get task by id
 
-// new task
+// new task - post request with properly constructed body, no validating so far
 // curl -X POST -H "Content-Type: application/json" -d
-// '{"name":"Your task description","text":"task text","completed":0,
+// '{"name":"Your task description","text":"task text","isCompleted":0,
 // "startTime":"202306061200","endTime":"202307061200"}'
 // http://localhost:9000/tasks
 app.post('/tasks', (req, res) => {
@@ -88,7 +88,7 @@ app.post('/tasks', (req, res) => {
   const newTask = {
     name: req.body.name,
     text: req.body.text,
-    completed: req.body.completed,
+    isCompleted: req.body.isCompleted,
     startTime: req.body.startTime,
     endTime: req.body.endTime,
   };
