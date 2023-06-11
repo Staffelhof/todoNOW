@@ -19,6 +19,8 @@ app.use(express.json());
 app.get('/notes', (req, res) => {
   notesDB.get().then((notes) => {
     res.status(200).json(notes);
+  }, (err) => {
+    res.status(500).json({ error: err });
   });
 });
 
@@ -27,7 +29,13 @@ app.get('/notes', (req, res) => {
 app.get('/note/:id', (req, res) => {
   const noteId = req.params.id;
   notesDB.get(noteId).then((note) => {
-    res.status(200).json(note);
+    if (note) {
+      res.status(200).json(note);
+    } else {
+      res.status(404).json({ error: 'not found' });
+    }
+  }, (err) => {
+    res.status(500).json({ error: err });
   });
 });
 
@@ -97,6 +105,8 @@ app.delete('/note/:id', (req, res) => {
 app.get('/tasks', (req, res) => {
   tasksDB.get().then((tasks) => {
     res.status(200).json(tasks);
+  }, (err) => {
+    res.status(500).json({ error: err });
   });
 });
 
@@ -105,7 +115,13 @@ app.get('/tasks', (req, res) => {
 app.get('/task/:id', (req, res) => {
   const taskId = req.params.id;
   tasksDB.get(taskId).then((task) => {
-    res.status(200).json(task);
+    if (task) {
+      res.status(200).json(task);
+    } else {
+      res.status(404).json({ error: 'not found' });
+    }
+  }, (err) => {
+    res.status(500).json({ error: err });
   });
 });
 
