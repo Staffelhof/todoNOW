@@ -35,12 +35,12 @@ This will specific note/task or return 404 if note/task not found
 
 #### new note
 
-`PUT` request to `http://localhost:9000/notes` with JSON body `{"note": "Your task description"}`
+`POST` request to `http://localhost:9000/notes` with JSON body `{"note": "Your task description"}`
 This will add new note and return its ID
 
 #### new task
 
-`PUT` request to `http://localhost:9000/tasks` with JSON body
+`POST` request to `http://localhost:9000/tasks` with JSON body
 
 ``` json
 {
@@ -56,12 +56,12 @@ This will add new task and return its ID. Fields values are not being validated.
 
 #### update note
 
-`PATCH` request to `http://localhost:9000/note/{id}` with JSON body `{"note": "Your task description"}`
+`PUT` request to `http://localhost:9000/note/{id}` with JSON body `{"note": "Your task description"}`
 This will update specific note or return 404 if note not found
 
 #### update task
 
-`PATCH` request to `http://localhost:9000/task/{id}` with JSON body
+`PUT` request to `http://localhost:9000/task/{id}` with JSON body
 
 ``` json
 {

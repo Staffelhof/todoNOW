@@ -53,11 +53,11 @@ app.post('/notes', (req, res) => {
 });
 
 /*
-update note, patch request to http://localhost:9000/note/{id} with {"note": "Note new text"}
+update note, put request to http://localhost:9000/note/{id} with {"note": "Note new text"}
 will return 404 if note not found
-curl -X PATCH -H "Content-Type: application/json" -d '{"note":"Note new text"}' http://localhost:9000/note/{id}
+curl -X PUT -H "Content-Type: application/json" -d '{"note":"Note new text"}' http://localhost:9000/note/{id}
 */
-app.patch('/note/:id', (req, res) => {
+app.put('/note/:id', (req, res) => {
   const noteId = req.params.id;
   const updatedNote = {
     id: noteId,
@@ -146,11 +146,11 @@ app.post('/tasks', (req, res) => {
 });
 
 /*
-update task, patch request to http://localhost:9000/task/{id} with properly constructed body
+update task, put request to http://localhost:9000/task/{id} with properly constructed body
 will return 404 if task not found
-curl -X PATCH -H "Content-Type: application/json" -d '{"name":"Your task description","text":"task text","isCompleted":0, "startTime":"202306061200","endTime":"202307061200"}' http://localhost:9000/task/{id}
+curl -X PUT -H "Content-Type: application/json" -d '{"name":"Your task description","text":"task text","isCompleted":0, "startTime":"202306061200","endTime":"202307061200"}' http://localhost:9000/task/{id}
 */
-app.patch('/task/:id', (req, res) => {
+app.put('/task/:id', (req, res) => {
   const taskId = req.params.id;
   const updatedTask = {
     id: taskId,
@@ -197,6 +197,8 @@ app.delete('/task/:id', (req, res) => {
   });
 });
 
+/*
+static files are missing, so I'm removing this app.use
 app.use('*', (req, res) => {
 // читаем файл `index.html`
   const indexHTML = fs.readFileSync(path.resolve(__dirname, './index.html'), {
@@ -209,6 +211,7 @@ app.use('*', (req, res) => {
 
   return res.send(indexHTML);
 });
+*/
 
 // запускаем сервер на порту 9000
 app.listen('9000', () => {
