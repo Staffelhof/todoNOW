@@ -1,14 +1,19 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   deleteNote, getAllNotes, setNote, updateNote,
 } from './fetchFacade';
 
 export default function Notes() {
+  const elem = useRef('');
   const [noteList, setNoteList] = useState([]);
   const [noteElement, setNoteElement] = useState(noteList[0] || { id: -1, note: '' });
+  function changeRef(note) {
+    elem.current = note;
+  }
   if (noteElement.id === -1 && noteList.length !== 0) {
     setNoteElement(noteList[0]);
+    changeRef(noteList[0].note);
   }
   useEffect(() => {
     const dataFetch = async () => {
@@ -31,21 +36,27 @@ export default function Notes() {
         };
         delNote();
       }
-    } else if (noteElement.id > 0) {
+    } else if (noteElement.id > 0 && elem.current !== noteElement.note) {
+      console.log('check');
       updateNote(noteElement.id, noteElement)
+        .then(() => changeRef(noteElement.note))
         .then(() => setNoteList(noteList
           .map((el) => (el.id === noteElement.id ? noteElement : el))));
     } else if (noteElement.id === 0) {
       setNote(noteElement)
+        .then(() => changeRef(noteElement.note))
         .then((res) => setNoteList([...noteList, { id: res, note: noteElement.note }]));
     }
   }
   function handlePreviousButton(index) {
-    setNoteElement(noteList[index - 1]);
+    const noteListElement = noteList[index - 1];
+    setNoteElement(noteListElement);
+    changeRef(noteListElement.note);
   }
   function handleNextButton(index) {
-    // eslint-disable-next-line no-unused-expressions
-    setNoteElement(index < noteList.length - 1 ? noteList[index + 1] : { id: 0, note: '' });
+    const noteListElement = index < noteList.length - 1 ? noteList[index + 1] : { id: 0, note: '' };
+    setNoteElement(noteListElement);
+    changeRef(noteListElement.note);
   }
 
   function getIndex() {
