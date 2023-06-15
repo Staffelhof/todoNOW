@@ -1,7 +1,6 @@
 const express = require('express');
 
-// since no files being read...
-// const fs = require('fs');
+const fs = require('fs');
 
 const path = require('path');
 const CsvDB = require('csv-db');
@@ -200,11 +199,9 @@ app.delete('/task/:id', (req, res) => {
   });
 });
 
-/*
-static files are missing, so I'm removing this app.use
 app.use('*', (req, res) => {
 // читаем файл `index.html`
-  const indexHTML = fs.readFileSync(path.resolve(__dirname, './index.html'), {
+  const indexHTML = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), {
     encoding: 'utf8',
   });
 
@@ -214,7 +211,6 @@ app.use('*', (req, res) => {
 
   return res.send(indexHTML);
 });
-*/
 
 // запускаем сервер на порту 9000
 app.listen('9000', () => {
