@@ -11,10 +11,6 @@ const tasksDB = new CsvDB('./server/tasksDB.csv');
 
 // создание express приложения
 const app = express();
-
-// обслуживание статических ресурсов
-app.get(/\.(js|css|map|ico|png)$/, express.static(path.resolve(__dirname, '../dist')));
-
 app.use(express.json());
 
 // get all notes
@@ -200,6 +196,9 @@ app.delete('/task/:id', (req, res) => {
   });
 });
 
+// обслуживание статических ресурсов
+// app.get(/\.(js|css|map|ico|png)$/, express.static(path.resolve(__dirname, '../dist')));
+
 /*
 static files are missing, so I'm removing this app.use
 app.use('*', (req, res) => {
@@ -215,6 +214,14 @@ app.use('*', (req, res) => {
   return res.send(indexHTML);
 });
 */
+
+app.use('/html', express.static(path.join(__dirname, '../html')));
+app.use('/css', express.static(path.join(__dirname, '../css')));
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
+
+app.use('*', (req, res) => {
+  res.redirect("html/index.html")
+});
 
 // запускаем сервер на порту 9000
 app.listen('9000', () => {
