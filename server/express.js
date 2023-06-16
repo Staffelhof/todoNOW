@@ -12,29 +12,41 @@ const tasksDB = new CsvDB('./server/tasksDB.csv');
 const app = express();
 app.use(express.json());
 
+function getItems(db, res) {
+  db.get()
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+}
+
+function getItem(itemId, db, res) {
+  db.get(itemId)
+    .then((item) => {
+      if (item) {
+        res.status(200).json(item);
+      } else {
+        res.status(404).json({ error: 'not found' });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+}
+
 // get all notes
 // curl http://localhost:9000/notes
 app.get('/notes', (req, res) => {
-  notesDB.get().then((notes) => {
-    res.status(200).json(notes);
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  getItems(notesDB, res);
 });
 
 // get note by id
 // curl http://localhost:9000/note/{id}
 app.get('/note/:id', (req, res) => {
   const noteId = req.params.id;
-  notesDB.get(noteId).then((note) => {
-    if (note) {
-      res.status(200).json(note);
-    } else {
-      res.status(404).json({ error: 'not found' });
-    }
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  getItem(noteId, notesDB, res);
 });
 
 // new note, post request to http://localhost:9000/notes with {"note": "Note text"}
@@ -101,26 +113,14 @@ app.delete('/note/:id', (req, res) => {
 // get all tasks
 // curl http://localhost:9000/tasks
 app.get('/tasks', (req, res) => {
-  tasksDB.get().then((tasks) => {
-    res.status(200).json(tasks);
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  getItems(tasksDB, res);
 });
 
 // get note by id
 // curl http://localhost:9000/task/{id}
 app.get('/task/:id', (req, res) => {
   const taskId = req.params.id;
-  tasksDB.get(taskId).then((task) => {
-    if (task) {
-      res.status(200).json(task);
-    } else {
-      res.status(404).json({ error: 'not found' });
-    }
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  getItem(taskId, tasksDB, res);
 });
 
 /*
