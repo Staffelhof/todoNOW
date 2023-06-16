@@ -110,7 +110,6 @@ app.post('/notes', (req, res) => {
   insertItem(newNote, notesDB, res);
 });
 
-
 /*
 update note, put request to http://localhost:9000/note/{id} with {"note": "Note new text"}
 will return 404 if note not found
