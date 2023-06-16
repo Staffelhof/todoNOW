@@ -1,7 +1,7 @@
 react-build:
 	npm run build
 react-start:
-	npm run build
+	npm start
 server-start:
 	node server/index.js
 lint:
