@@ -1,7 +1,6 @@
 const express = require('express');
 
-// since no files being read...
-// const fs = require('fs');
+const fs = require('fs');
 
 const path = require('path');
 const CsvDB = require('csv-db');
@@ -197,13 +196,11 @@ app.delete('/task/:id', (req, res) => {
 });
 
 // обслуживание статических ресурсов
-// app.get(/\.(js|css|map|ico|png)$/, express.static(path.resolve(__dirname, '../dist')));
+app.get(/\.(js|css|map|ico|png)$/, express.static(path.resolve(__dirname, '../dist')));
 
-/*
-static files are missing, so I'm removing this app.use
 app.use('*', (req, res) => {
 // читаем файл `index.html`
-  const indexHTML = fs.readFileSync(path.resolve(__dirname, './index.html'), {
+  const indexHTML = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), {
     encoding: 'utf8',
   });
 
@@ -213,15 +210,7 @@ app.use('*', (req, res) => {
 
   return res.send(indexHTML);
 });
-*/
 
-app.use('/html', express.static(path.join(__dirname, '../html')));
-app.use('/css', express.static(path.join(__dirname, '../css')));
-app.use('/assets', express.static(path.join(__dirname, '../assets')));
-
-app.use('*', (req, res) => {
-  res.redirect("html/index.html")
-});
 
 // запускаем сервер на порту 9000
 app.listen('9000', () => {
