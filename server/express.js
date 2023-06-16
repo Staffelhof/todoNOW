@@ -12,6 +12,7 @@ const tasksDB = new CsvDB('./server/tasksDB.csv');
 const app = express();
 app.use(express.json());
 
+// helper functions start
 function getItems(db, res) {
   db.get()
     .then((data) => {
@@ -36,6 +37,57 @@ function getItem(itemId, db, res) {
     });
 }
 
+function insertItem(item, db, res) {
+  db.insert(item)
+    .then((insertedItem) => {
+      res.status(201).json(insertedItem);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+}
+
+function updateItem(itemId, updatedItem, db, res) {
+  db.get(itemId)
+    .then((item) => {
+      if (item) {
+        db.update(updatedItem, itemId)
+          .then(() => {
+            res.status(201).json({ message: 'item updated' });
+          })
+          .catch((err) => {
+            res.status(500).json({ error: err });
+          });
+      } else {
+        res.status(404).json({ error: 'not found' });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+}
+
+function deleteItem(itemId, db, res) {
+  db.get(itemId)
+    .then((item) => {
+      if (item) {
+        db.delete(itemId)
+          .then(() => {
+            res.status(200).json({ message: 'deleted' });
+          })
+          .catch((err) => {
+            res.status(500).json({ error: err });
+          });
+      } else {
+        res.status(404).json({ error: 'not found' });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+}
+// helper functions end
+
 // get all notes
 // curl http://localhost:9000/notes
 app.get('/notes', (req, res) => {
@@ -55,12 +107,9 @@ app.post('/notes', (req, res) => {
   const newNote = {
     note: req.body.note,
   };
-  notesDB.insert(newNote).then((note) => {
-    res.status(201).json(note);
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  insertItem(newNote, notesDB, res);
 });
+
 
 /*
 update note, put request to http://localhost:9000/note/{id} with {"note": "Note new text"}
@@ -73,19 +122,7 @@ app.put('/note/:id', (req, res) => {
     id: noteId,
     note: req.body.note,
   };
-  notesDB.get(noteId).then((note) => {
-    if (note) {
-      notesDB.update(updatedNote, noteId).then(() => {
-        res.status(201).json({ note });
-      }, (err) => {
-        res.status(500).json({ error: err });
-      });
-    } else {
-      res.status(404).json({ error: 'not found' });
-    }
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  updateItem(noteId, updatedNote, notesDB, res);
 });
 
 /*
@@ -95,19 +132,7 @@ curl -X DELETE http://localhost:9000/note/{id}
 */
 app.delete('/note/:id', (req, res) => {
   const noteId = req.params.id;
-  notesDB.get(noteId).then((note) => {
-    if (note) {
-      notesDB.delete(noteId).then(() => {
-        res.status(200).json({ message: 'deleted' });
-      }, (err) => {
-        res.status(500).json({ error: err });
-      });
-    } else {
-      res.status(404).json({ error: 'not found' });
-    }
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  deleteItem(noteId, notesDB, res);
 });
 
 // get all tasks
@@ -128,7 +153,6 @@ new task - post request with properly constructed body, no validating so far
 curl -X POST -H "Content-Type: application/json" -d '{"name":"Your task description","text":"task text","isCompleted":0, "startTime":"202306061200","endTime":"202307061200"}' http://localhost:9000/tasks
 */
 app.post('/tasks', (req, res) => {
-  // validate if fields are not empty "maybe later"
   const newTask = {
     name: req.body.name,
     text: req.body.text,
@@ -136,11 +160,7 @@ app.post('/tasks', (req, res) => {
     startTime: req.body.startTime,
     endTime: req.body.endTime,
   };
-  tasksDB.insert(newTask).then((task) => {
-    res.status(201).json(task);
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  insertItem(newTask, tasksDB, res);
 });
 
 /*
@@ -158,19 +178,7 @@ app.put('/task/:id', (req, res) => {
     startTime: req.body.startTime,
     endTime: req.body.endTime,
   };
-  tasksDB.get(taskId).then((task) => {
-    if (task) {
-      tasksDB.update(updatedTask, taskId).then(() => {
-        res.status(201).json({ message: 'task updated' });
-      }, (err) => {
-        res.status(500).json({ error: err });
-      });
-    } else {
-      res.status(404).json({ error: 'not found' });
-    }
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  updateItem(taskId, updatedTask, tasksDB, res);
 });
 
 /*
@@ -180,19 +188,7 @@ curl -X DELETE http://localhost:9000/task/{id}
 */
 app.delete('/task/:id', (req, res) => {
   const taskId = req.params.id;
-  tasksDB.get(taskId).then((task) => {
-    if (task) {
-      tasksDB.delete(taskId).then(() => {
-        res.status(200).json({ message: 'deleted' });
-      }, (err) => {
-        res.status(500).json({ error: err });
-      });
-    } else {
-      res.status(404).json({ error: 'not found' });
-    }
-  }, (err) => {
-    res.status(500).json({ error: err });
-  });
+  deleteItem(taskId, tasksDB, res);
 });
 
 // обслуживание статических ресурсов
