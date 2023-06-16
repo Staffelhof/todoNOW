@@ -70,3 +70,23 @@
   width: 200px;
   border:1px solid black;
 }
+
+.TaskComponent {
+  align-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 200px;
+}
+.TaskComponentButton {
+  flex: 1 0 25%;
+  padding-left: 0px;
+  padding-right: 0px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+}
+.TaskElement {
+  flex: 1 0 100%;
+  resize: none;
+}

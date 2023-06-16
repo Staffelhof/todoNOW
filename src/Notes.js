@@ -37,7 +37,6 @@ export default function Notes() {
         delNote();
       }
     } else if (noteElement.id > 0 && elem.current !== noteElement.note) {
-      console.log('check');
       updateNote(noteElement.id, noteElement)
         .then(() => changeRef(noteElement.note))
         .then(() => setNoteList(noteList

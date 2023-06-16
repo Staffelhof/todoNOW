@@ -11,8 +11,9 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
   }
 
   return (
-    <div>
+    <div className="TaskComponent">
       <input
+        className="TaskElement"
         value={currentTask.name || ''}
         onChange={handleNameChange}
         placeholder="Task name"
@@ -23,10 +24,10 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         value={currentTask.text}
         onChange={handleChange}
       />
-      <button type="button">Done</button>
-      <button type="button">Failed</button>
-      <button type="button">Options</button>
-      <button type="button">Clear</button>
+      <button type="button" className="TaskComponentButton">Done</button>
+      <button type="button" className="TaskComponentButton">Failed</button>
+      <button type="button" className="TaskComponentButton">Options</button>
+      <button type="button" className="TaskComponentButton">Clear</button>
     </div>
   );
 }
