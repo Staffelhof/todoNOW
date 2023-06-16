@@ -211,7 +211,6 @@ app.use('*', (req, res) => {
   return res.send(indexHTML);
 });
 
-
 // запускаем сервер на порту 9000
 app.listen('9000', () => {
   console.log('Express server started at <http://localhost:9000>');
