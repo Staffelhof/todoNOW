@@ -7,38 +7,46 @@ import {
   getAllTasks,
 } from './fetchFacade';
 
-// eslint-disable-next-line max-len
+const emptyTask = {
+  id: '-1', name: '', text: '', isCompleted: '0',
+};
 
 function App() {
   const [taskList, setTaskList] = useState([]);
-  const [currentTask, setCurrentTask] = useState({});
+  const [currentTask, setCurrentTask] = useState(emptyTask);
 
   useEffect(() => {
     const dataFetch = async () => {
-      getAllTasks.then((res) => setTaskList([...res, {
-        id: '-1', name: '', text: '', isCompleted: '0',
-      }]));
+      getAllTasks.then((res) => setTaskList([...res, emptyTask]));
     };
 
     dataFetch();
   }, []);
 
   return (
-    <div>
-      <title>
-        TO-DO NOW
-      </title>
+    <div className="main">
+      <div className="to-do">To-Do</div>
+      <div className="now">Now</div>
       <TaskList
         tasklist={taskList}
         setTasklist={(list) => setTaskList(list)}
-        setCurrentTask={(task) => setCurrentTask(task)}
+        setCurrentTask={(task) => setCurrentTask(task || emptyTask)}
+        currentTask={currentTask}
       />
       <TaskElem
         currentTask={currentTask}
         setCurrentTask={(task) => setCurrentTask(task)}
-        updateTaskList={(task) => {
-          const changedList = taskList.map((el) => (el.id === task.id ? task : el));
+        updateTaskList={(task, isNew, isDelete) => {
+          const taskId = isNew ? '-1' : task.id;
+          const changedList = isDelete
+            ? taskList.filter((el) => el.id !== task.id)
+            : taskList.map((el) => (el.id === taskId ? task : el));
           setTaskList(changedList);
+          if (isNew) {
+            setTaskList([...changedList, emptyTask]);
+          } if (isDelete) {
+            setCurrentTask(emptyTask);
+          }
         }}
       />
       <Notes />
