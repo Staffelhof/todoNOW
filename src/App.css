@@ -297,3 +297,57 @@ body {
 .NoteButton:disabled {
   color: gray;
 }
+
+.Note {
+  height: 200px;
+  width: 200px;
+  resize: none;
+}
+
+.NoteComponent {
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+.NoteComponentName {
+  width: 200px;
+  text-align: center;
+}
+
+.NoteButton {
+  flex: 1 0 50%;
+}
+
+.TaskListElement {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 200px;
+  border:1px solid black;
+}
+
+.TaskComponent {
+  align-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 200px;
+}
+.TaskComponentButton {
+  flex: 1 0 25%;
+  padding-left: 0px;
+  padding-right: 0px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+}
+.TaskElement {
+  flex: 1 0 100%;
+  resize: none;
+}
