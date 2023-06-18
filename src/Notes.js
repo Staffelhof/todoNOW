@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useEffect, useRef, useState } from 'react';
 import {
-  deleteNote, getAllNotes, setNote, updateNote,
+  deleteNote, getAllNotes, putNote, updateNote,
 } from './fetchFacade';
 
 export default function Notes() {
@@ -42,7 +42,7 @@ export default function Notes() {
         .then(() => setNoteList(noteList
           .map((el) => (el.id === noteElement.id ? noteElement : el))));
     } else if (noteElement.id === 0) {
-      setNote(noteElement)
+      putNote(noteElement)
         .then(() => changeRef(noteElement.note))
         .then((res) => setNoteList([...noteList, { id: res, note: noteElement.note }]));
     }
@@ -64,22 +64,22 @@ export default function Notes() {
 
   return (
     <div className="NoteComponent">
-      <div className="NoteComponentName">reminder</div>
+      <div className="NoteComponentName">Reminder</div>
       <button
-        className="NoteButton"
+        className="leftNoteButton NoteButton"
         type="button"
         onClick={() => handlePreviousButton(getIndex())}
         disabled={getIndex() < 1}
       >
-        previous
+        &lt;
       </button>
       <button
-        className="NoteButton"
+        className="rightNoteButton NoteButton"
         type="button"
         onClick={() => handleNextButton(getIndex())}
         disabled={getIndex() > noteList.length - 1}
       >
-        next
+        &gt;
       </button>
       <textarea
         className="Note"
