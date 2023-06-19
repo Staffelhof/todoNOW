@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import taskShape from './shape';
 import { deleteTask, updateTask } from './fetchFacade';
