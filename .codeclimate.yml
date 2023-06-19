@@ -2,10 +2,10 @@ version: "2"
 checks:
   method-lines:
     ignore:
-      - "App"
-      - "Notes"
+      "App"
+      "Notes"
   complex-logic:
     ignore:
-      - "App"
-      - "TaskList"
-      - "TaskElem"
+      "App"
+      "TaskList"
+      "TaskElem"
