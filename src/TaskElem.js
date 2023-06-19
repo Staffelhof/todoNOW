@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import taskShape from './shape';
@@ -9,13 +8,16 @@ const taskDelete = true;
 export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }) {
   const nameRef = useRef('');
   const textRef = useRef('');
+
+  function changeHandler(obj) {
+    setCurrentTask({ ...currentTask, ...obj });
+    updateTaskList({ ...currentTask, ...obj }, !taskCreate, !taskDelete);
+  }
   function handleTextChange(e) {
-    setCurrentTask({ ...currentTask, text: e.target.value });
-    updateTaskList({ ...currentTask, text: e.target.value }, !taskCreate, !taskDelete);
+    changeHandler({ text: e.target.value });
   }
   function handleNameChange(e) {
-    setCurrentTask({ ...currentTask, name: e.target.value });
-    updateTaskList({ ...currentTask, name: e.target.value }, !taskCreate, !taskDelete);
+    changeHandler({ name: e.target.value });
   }
   function handleNameBlur() {
     if (nameRef.current === currentTask.name) {

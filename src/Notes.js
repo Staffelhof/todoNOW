@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { useEffect, useRef, useState } from 'react';
 import {
   deleteNote, getAllNotes, putNote, updateNote,
