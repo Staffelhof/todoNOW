@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import taskShape from './shape';
 import { putTask, updateTask, deleteTask } from './fetchFacade';
+import done from './done.png';
+import cross from './cross.png';
+import dots from './dots.png';
 
 const taskCreate = true;
 const taskDelete = true;
@@ -98,17 +101,37 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         onFocus={handleTextFocus}
         onBlur={handleTextBlur}
       />
-      <button type="button" className="TaskComponentButton" onClick={handleDoneClick}>Done</button>
-      <button type="button" className="TaskComponentButton" onClick={handleFailedClick}>Failed</button>
-      <button type="button" className="TaskComponentButton" onClick={handleOptionsClick}>Options</button>
-      <button
-        type="button"
-        className="TaskComponentButton"
-        onClick={handleDeleteClick}
-        disabled={currentTask.id < 1}
-      >
-        Delete
-      </button>
+      <div className="ButtonBar">
+        <button type="button" className="TaskComponentButton" disabled={currentTask.id < 1} onClick={handleDoneClick}>
+          {currentTask.isCompleted !== '0'
+            ? <img className="doneElementImage" src={done} alt="Done" />
+            : ''}
+        </button>
+        <button
+          type="button"
+          className="TaskComponentButton"
+          disabled={currentTask.id < 1}
+          onClick={handleFailedClick}
+        >
+          <img className="crossElementImage" src={cross} alt="Done" />
+        </button>
+        <button
+          type="button"
+          className="TaskComponentButton"
+          disabled={currentTask.id < 1}
+          onClick={handleOptionsClick}
+        >
+          <img className="dotsElementImage" src={dots} alt="Done" />
+        </button>
+        <button
+          type="button"
+          className="TaskComponentDeleteButton"
+          onClick={handleDeleteClick}
+          disabled={currentTask.id < 1}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }
