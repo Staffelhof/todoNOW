@@ -63,17 +63,17 @@ export default function Notes() {
 
   return (
     <div className="NoteComponent">
-      <div className="NoteComponentName">Reminder</div>
       <button
-        className="leftNoteButton NoteButton"
+        className="NoteButton"
         type="button"
         onClick={() => handlePreviousButton(getIndex())}
         disabled={getIndex() < 1}
       >
         &lt;
       </button>
+      <div className="NoteComponentName">Reminder</div>
       <button
-        className="rightNoteButton NoteButton"
+        className="NoteButton"
         type="button"
         onClick={() => handleNextButton(getIndex())}
         disabled={getIndex() > noteList.length - 1}

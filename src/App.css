@@ -90,9 +90,10 @@ body {
 }
 .task-list-line {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
   width: 500px;
+  align-items: flex-end
 }
 
 .hr-line {
@@ -136,11 +137,35 @@ body {
 }
 
 .TaskComponentButton {
-  flex: 1 0 25%;
-  padding-left: 0px;
-  padding-right: 0px;
-  border-right-width: 1px;
-  border-left-width: 1px;
+  flex: 1 0 15%;
+  border: none;
+  background-color: transparent;
+  background-image: url("checkBox.png");
+  background-size: 60px;
+  width: 60px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+}
+.TaskComponentDeleteButton {
+  flex: 1 0 45%;
+  border: none;
+  background-color: transparent;
+  background-image: url("rectangle.png");
+  background-size: 100px;
+  width: 70px;
+  height: 65px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  font-family: 'Inter', serif;
+  font-weight: 700;
+  font-size: 25px;
+
+}
+.ButtonBar {
+  display: flex;
+  width: 100%;
 }
 
 .TaskTextElement {
@@ -176,7 +201,7 @@ body {
   font-weight: 700;
   font-size: 25px;
   line-height: 30px;
-  height: 70%;
+  height: 60%;
   color: #000000;
 }
 
@@ -194,6 +219,8 @@ body {
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: center;
+  align-items: flex-end;
+  row-gap: 15px;
 }
 
 .NoteComponentName {
@@ -205,7 +232,7 @@ body {
   text-align: center;
   color: #FFFFFF;
   padding-top: 20px;
-  flex: 0 1 100%;
+  flex: 0 1 50%;
 }
 
 .Note {
@@ -231,10 +258,43 @@ body {
   border: 0;
   font-size: 2em;
   background-color: transparent;
-  flex: 0 1 50%;
   text-align: center;
   color: #FFFFFF;
 }
 .NoteButton:disabled {
   color: gray;
 }
+.deleteButton {
+  border: none;
+  background-color: transparent;
+}
+.deleteButton:disabled {
+  visibility: hidden;
+}
+.deleteImage {
+  width: 30px;
+}
+.doneButton {
+  border: none;
+  background-color: transparent;
+  background-image: url("checkBox.png");
+  background-size: 40px;
+  width: 40px;
+  height: 40px;
+}
+.doneButton:disabled {
+  visibility: hidden;
+}
+.doneImage {
+  width: 30px;
+}
+.doneElementImage {
+  width: 60px;
+}
+.crossElementImage {
+  width: 50px;
+}
+.dotsElementImage {
+  width: 50px;
+}
+

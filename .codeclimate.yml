@@ -1,8 +1,7 @@
 version: "2"
 checks:
-  method-lines:
-    ignore:
-      - "App/Notes"
-  complex-logic:
-    ignore:
-      - "App/TaskList/TaskElem"
+ complex-logic:
+  config:
+   threshold: 4
+exclude_paths:
+ - "src/App.js"
