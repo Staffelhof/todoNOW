@@ -93,7 +93,7 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         placeholder="Task name"
       />
       <textarea
-        className="TaskTextElement task-description"
+        className="task-description"
         key={currentTask.id}
         value={currentTask.text}
         disabled={currentTask.id < 1}
@@ -105,7 +105,7 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         <button type="button" className="TaskComponentButton" disabled={currentTask.id < 1} onClick={handleDoneClick}>
           {currentTask.isCompleted !== '0'
             ? <img className="doneElementImage" src={done} alt="Done" />
-            : ''}
+            : <img className="doneToCompleteElementImage" src={done} alt="Done" />}
         </button>
         <button
           type="button"
@@ -113,7 +113,7 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
           disabled={currentTask.id < 1}
           onClick={handleFailedClick}
         >
-          <img className="crossElementImage" src={cross} alt="Done" />
+          <img className="crossElementImage" src={cross} alt="Fail" />
         </button>
         <button
           type="button"
@@ -121,7 +121,7 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
           disabled={currentTask.id < 1}
           onClick={handleOptionsClick}
         >
-          <img className="dotsElementImage" src={dots} alt="Done" />
+          <img className="dotsElementImage" src={dots} alt="Options" />
         </button>
         <button
           type="button"

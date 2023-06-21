@@ -8,44 +8,35 @@
 }
 
 body {
-  background: #1E1E1E;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  background-color: #47ba81;
 }
-.main {
-  position: relative;
-  width: 1440px;
-  height: 1024px;
 
-  background-color: #47BA81;
+.main {
+  width: 1075px;
+  margin: 40px auto;
+  display: grid;
+  gap: 25px;
+  grid-template-columns: 525px 1fr;
+  grid-template-rows: 30px 350px 350px;
+  grid-template-areas:
+        "A E"
+        "B C"
+        "B D";
 }
 
 .to-do {
-  position: absolute;
-  width: 105px;
-  height: 42px;
-  left: 603px;
-  top: 22px;
-
-  font-family: 'Inter', sans-serif;
+  grid-area: A;
   font-style: normal;
   font-weight: 700;
   font-size: 35px;
   line-height: 42px;
-
+  text-align: right;
   color: #FFFFFF;
 }
 
 .now {
-  position: absolute;
-  width: 77px;
-  height: 42px;
-  left: 740px;
-  top: 22px;
-
-  font-family: 'Inter', sans-serif;
+  grid-area: E;
   font-style: normal;
   font-weight: 700;
   font-size: 35px;
@@ -55,30 +46,24 @@ body {
 }
 
 .task-list {
-  position: absolute;
-  width: 525px;
-  height: 732px;
-  left: 188px;
-  top: 96px;
-
+  grid-area: B;
   background: #FFA800;
   border-radius: 18px;
+  overflow: auto;
+}
+.task-list::-webkit-scrollbar {
+  height: 0;
+  width: 0;
 }
 
 .task-list-title {
-  position: relative;
-  width: 110px;
-  height: 30px;
-  left: 222px;
-  top: 26px;
-
-  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
   line-height: 30px;
-
+  text-align: center;
   color: #FFFFFF;
+  margin: 20px;
 }
 
 .task-lines {
@@ -86,9 +71,10 @@ body {
   flex-wrap: wrap;
   flex-direction: column;
   align-content: center;
-  padding-top: 40px;
 }
+
 .task-list-line {
+  margin-bottom: -5px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -111,7 +97,6 @@ body {
   text-overflow: ellipsis;
   width: 350px;
 
-  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
@@ -121,12 +106,7 @@ body {
 }
 
 .TaskComponent {
-  position: absolute;
-  width: 525px;
-  height: 350px;
-  left: 728px;
-  top: 96px;
-
+  grid-area: C;
   background: #FFA800;
   border-radius: 18px;
   display: flex;
@@ -134,6 +114,7 @@ body {
   align-content: flex-start;
   justify-content: center;
   flex-wrap: wrap;
+  row-gap: 10px;
 }
 
 .TaskComponentButton {
@@ -141,11 +122,13 @@ body {
   border: none;
   background-color: transparent;
   background-image: url("checkBox.png");
-  background-size: 60px;
-  width: 60px;
-  height: 60px;
+  background-size: 40px;
   background-repeat: no-repeat;
   background-position: center center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 
 }
 .TaskComponentDeleteButton {
@@ -153,14 +136,14 @@ body {
   border: none;
   background-color: transparent;
   background-image: url("rectangle.png");
-  background-size: 100px;
+  background-size: 70px;
   width: 70px;
   height: 65px;
   background-repeat: no-repeat;
   background-position: center center;
   font-family: 'Inter', serif;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 20px;
 
 }
 .ButtonBar {
@@ -181,8 +164,7 @@ body {
   outline: none;
 }
 .task-name-title {
-  padding-top: 20px;
-  font-family: 'Inter', sans-serif;
+  margin-top: 20px;
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
@@ -195,23 +177,22 @@ body {
   resize: none;
   background: transparent;
   border: none;
-
-  font-family: 'Inter', sans-serif;
+  width: 450px;
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
   line-height: 30px;
   height: 60%;
   color: #000000;
+  outline: none;
+}
+.task-description::-webkit-scrollbar {
+  height: 0;
+  width: 0;
 }
 
 .NoteComponent {
-  position: absolute;
-  width: 525px;
-  height: 350px;
-  left: 728px;
-  top: 478px;
-
+  grid-area: D;
   background: #FFA800;
   border-radius: 18px;
   display: flex;
@@ -224,7 +205,6 @@ body {
 }
 
 .NoteComponentName {
-  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
@@ -241,11 +221,14 @@ body {
   background: transparent;
   border: 0px;
   height: 250px;
-  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
   line-height: 30px;
+}
+.Note::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .Note:focus {
@@ -253,7 +236,6 @@ body {
 
 }
 .NoteButton {
-  font-family: 'Inter', sans-serif;
   font-style: normal;
   border: 0;
   font-size: 2em;
@@ -278,9 +260,13 @@ body {
   border: none;
   background-color: transparent;
   background-image: url("checkBox.png");
-  background-size: 40px;
-  width: 40px;
-  height: 40px;
+  background-size: 30px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: column-reverse;
 }
 .doneButton:disabled {
   visibility: hidden;
@@ -289,12 +275,16 @@ body {
   width: 30px;
 }
 .doneElementImage {
-  width: 60px;
+  width: 35px;
+}
+.doneToCompleteElementImage {
+  width: 35px;
+  opacity: 0.5;
 }
 .crossElementImage {
-  width: 50px;
+  width: 35px;
 }
 .dotsElementImage {
-  width: 50px;
+  width: 35px;
 }
 
