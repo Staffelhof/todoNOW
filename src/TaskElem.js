@@ -1,21 +1,26 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import taskShape from './shape';
 import { putTask, updateTask, deleteTask } from './fetchFacade';
+import done from './done.png';
+import cross from './cross.png';
+import dots from './dots.png';
 
 const taskCreate = true;
 const taskDelete = true;
 export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }) {
   const nameRef = useRef('');
   const textRef = useRef('');
+
+  function changeHandler(obj) {
+    setCurrentTask({ ...currentTask, ...obj });
+    updateTaskList({ ...currentTask, ...obj }, !taskCreate, !taskDelete);
+  }
   function handleTextChange(e) {
-    setCurrentTask({ ...currentTask, text: e.target.value });
-    updateTaskList({ ...currentTask, text: e.target.value }, !taskCreate, !taskDelete);
+    changeHandler({ text: e.target.value });
   }
   function handleNameChange(e) {
-    setCurrentTask({ ...currentTask, name: e.target.value });
-    updateTaskList({ ...currentTask, name: e.target.value }, !taskCreate, !taskDelete);
+    changeHandler({ name: e.target.value });
   }
   function handleNameBlur() {
     if (nameRef.current === currentTask.name) {
@@ -88,7 +93,7 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         placeholder="Task name"
       />
       <textarea
-        className="TaskTextElement task-description"
+        className="task-description"
         key={currentTask.id}
         value={currentTask.text}
         disabled={currentTask.id < 1}
@@ -96,17 +101,37 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         onFocus={handleTextFocus}
         onBlur={handleTextBlur}
       />
-      <button type="button" className="TaskComponentButton" onClick={handleDoneClick}>Done</button>
-      <button type="button" className="TaskComponentButton" onClick={handleFailedClick}>Failed</button>
-      <button type="button" className="TaskComponentButton" onClick={handleOptionsClick}>Options</button>
-      <button
-        type="button"
-        className="TaskComponentButton"
-        onClick={handleDeleteClick}
-        disabled={currentTask.id < 1}
-      >
-        Delete
-      </button>
+      <div className="ButtonBar">
+        <button type="button" className="TaskComponentButton" disabled={currentTask.id < 1} onClick={handleDoneClick}>
+          {currentTask.isCompleted !== '0'
+            ? <img className="doneElementImage" src={done} alt="Done" />
+            : <img className="doneToCompleteElementImage" src={done} alt="Done" />}
+        </button>
+        <button
+          type="button"
+          className="TaskComponentButton"
+          disabled={currentTask.id < 1}
+          onClick={handleFailedClick}
+        >
+          <img className="crossElementImage" src={cross} alt="Fail" />
+        </button>
+        <button
+          type="button"
+          className="TaskComponentButton"
+          disabled={currentTask.id < 1}
+          onClick={handleOptionsClick}
+        >
+          <img className="dotsElementImage" src={dots} alt="Options" />
+        </button>
+        <button
+          type="button"
+          className="TaskComponentDeleteButton"
+          onClick={handleDeleteClick}
+          disabled={currentTask.id < 1}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }

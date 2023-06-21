@@ -1,7 +1,8 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import taskShape from './shape';
 import { deleteTask, updateTask } from './fetchFacade';
+import trash from './trash.png';
+import done from './done.png';
 
 export default function TaskList({
   tasklist, setTasklist, setCurrentTask, currentTask,
@@ -34,15 +35,17 @@ export default function TaskList({
           <div className="wrapper">
             <div className="task-list-line">
               <button
+                className="doneButton"
                 disabled={el.id < 1}
                 type="button"
                 onClick={(event) => handleDoneClick(event, el)}
               >
-                {el.isCompleted !== '0' ? 'V' : ''}
+                {el.isCompleted !== '0'
+                  ? <img className="doneImage" src={done} alt="Done" />
+                  : ''}
               </button>
               <div
                 role="button"
-                placeholder="Add new task"
                 className="task-line-text"
                 tabIndex={0}
                 key={el.id}
@@ -52,11 +55,12 @@ export default function TaskList({
                 {el.name || 'Add new task'}
               </div>
               <button
+                className="deleteButton"
                 type="button"
                 disabled={el.id < 1}
                 onClick={(event) => handleDeleteClick(event, el)}
               >
-                Delete
+                {el.id < 1 ? '' : <img className="deleteImage" src={trash} alt="delete" />}
               </button>
             </div>
             <div><hr className="hr-line" /></div>

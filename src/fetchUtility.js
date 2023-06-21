@@ -1,3 +1,10 @@
+const initObject = (method, obj) => ({
+  method: `${method}`,
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+  },
+  body: JSON.stringify(obj).replace(/\\n/g, ' ').replace(';', ','),
+});
 export async function getAll(type) {
   try {
     const result = (
@@ -19,17 +26,11 @@ export async function getByTypeAndId(type, id) {
     return err.message;
   }
 }
-export async function setByTypeAndId(type, obj) {
+export async function setByType(type, obj, method) {
   try {
     const res = (await fetch(
       `/${type}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify(obj).replace(/\\n/g, ' ').replace(';', ','),
-      },
+      initObject(method, obj),
     )).json();
 
     return res;
@@ -37,17 +38,11 @@ export async function setByTypeAndId(type, obj) {
     return err.message;
   }
 }
-export async function updateByTypeAndId(type, id, obj) {
+export async function updateByTypeAndId(type, id, obj, method) {
   try {
     const res = (await fetch(
       `/${type}/${id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify(obj).replace(/\\n/g, ' ').replace(';', ','),
-      },
+      initObject(method, obj),
     ));
 
     return res;
