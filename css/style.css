@@ -9,7 +9,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  }
+}
   
 main {
   position: relative;
@@ -17,6 +17,26 @@ main {
   height: 1024px;
   
   background-color: #47BA81;
+}
+
+.palm-branch1 {
+  display: flex;
+  position: absolute;
+
+  left: 0px;
+  top: 0px;
+  flex-shrink: 0;
+  background: cover no-repeat;
+}
+
+.palm-branch2 {
+  display: flex;
+  position: absolute;
+
+  right: 0px;
+  bottom: 0px;
+  flex-shrink: 0;
+  background: cover no-repeat;
 }
   
 .to-do {
@@ -88,6 +108,150 @@ main {
   line-height: 59px;
 }
 
+.mark-line1 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 12px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.mark-line2 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 69px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.mark-line3 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 126px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.mark-line4 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 183px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.mark-line5 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 240px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.mark-line6 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 297px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.mark-line7 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 354px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.mark-line8 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 411px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.mark-line9 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -65px;
+  top: 468px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
 .hr-line {
   position: relative;
   margin: -2px;
@@ -114,9 +278,164 @@ main {
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
-  line-height: 30px;
+  line-height: 20px;
 
   color: #DC1C1C;
+}
+
+.line1-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 14px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.line2-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 71px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.line3-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 128px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.line4-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 185px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.line5-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 242px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.line6-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 299px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.line7-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 356px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.line8-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 413px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.line9-delete-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 27px;
+  left: 380px;
+  top: 470px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+button[delete-button] {
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #000000;
 }
 
 .task-name {
@@ -170,6 +489,168 @@ main {
   color: #000000;
 }
 
+.task-done-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  left: 57px;
+  top: 279px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.task-done-button:focus + img[alt="done"] {
+
+  display: flex;
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  left: 57px;
+  top: 279px;
+}
+
+.task-failed-button {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  left: 118px;
+  top: 279px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+
+  cursor: pointer;
+}
+
+.task-failed-button:focus + img[alt="fail"] {
+
+  display: flex;
+
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  left: 122px;
+  top: 282px;
+}
+
+.task-options-button {
+  box-sizing: border-box;
+
+  z-index: 100;
+
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  left: 179px;
+  top: 129px;
+
+  background: #FFA800;
+
+  border: 1px solid #000000;
+}
+
+.task-options-button img[alt="option"] {
+
+  display: flex;
+
+  z-index: 100;
+
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.nav ul {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.nav>ul {
+  display: flex;
+}
+
+.nav li {
+  position: relative;
+
+  padding: 0px 30px;
+
+  cursor: pointer;
+
+  list-style: none;
+}
+
+.sub-menu {
+  display: none;
+}
+
+.nav li:hover>.sub-menu {
+  position: absolute;
+  left: 200px;
+  cursor: pointer;
+  display: block;
+
+  width: max-content;
+  top: 120px;
+
+  background: #FFA800;
+}
+
+.nav a {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+
+  color: #333;
+  text-decoration: none;
+}
+
+.task-clear-button {
+  box-sizing: border-box;
+
+  z-index: 100;
+
+  position: absolute;
+  width: 76px;
+  height: 34px;
+  left: 383px;
+  top: 282px;
+  
+  background: #FFA800;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+.task-clear-button div {
+  position: absolute;
+  width: 64px;
+  height: 27px;
+  left: 4px;
+  top: 4px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
 .reminder {
   position: absolute;
   width: 525px;
@@ -203,7 +684,6 @@ main {
   height: 30px;
   left: 32px;
   top: 74px;
-
 }
 
 .reminder-description textarea {
@@ -220,7 +700,6 @@ main {
   line-height: 30px;
 
   color: #000000;
-
 }
 
 .clear-button {
@@ -250,5 +729,3 @@ main {
   
   color: #FFFFFF;
 }
-
-
