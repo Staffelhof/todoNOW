@@ -18,7 +18,7 @@ export default function TaskList({
   };
   const handleDoneClick = (event, elemet) => {
     const updatedTask = { ...elemet, isCompleted: !elemet.isCompleted ? 1 : 0 };
-    updateTask(elemet.id)
+    updateTask(elemet.id, updatedTask)
       .then(setTasklist(tasklist.map((el) => (el.id === updatedTask.id ? updatedTask : el))));
     if (elemet.id === currentTask.id) {
       setCurrentTask(updatedTask);
