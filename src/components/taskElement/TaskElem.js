@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
-import taskShape from './shape';
-import { putTask, updateTask, deleteTask } from './fetchFacade';
-import done from './done.png';
-import cross from './cross.png';
-import dots from './dots.png';
+import taskShape from '../../utility/shape';
+import { putTask, updateTask } from '../../utility/fetchFacade';
 
 const taskCreate = true;
 const taskDelete = true;
@@ -56,31 +53,6 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
   function handleTextFocus() {
     textRef.current = currentTask.text;
   }
-  function handleDoneClick() {
-    if (currentTask.id < 1) {
-      alert("You can't complete task without name");
-    }
-    const status = currentTask.isCompleted === '0' ? '1' : '0';
-    const updatedTask = { ...currentTask, isCompleted: status };
-    updateTask(currentTask.id, updatedTask)
-      .then(setCurrentTask(updatedTask))
-      .then(updateTaskList(updatedTask, !taskCreate, !taskDelete));
-  }
-  function handleFailedClick() {
-    alert('"Failure Is Not an Option" (c) NASA Flight Director Gene Kranz');
-  }
-  function handleOptionsClick() {
-    alert('There are currently no power options available');
-  }
-  function handleDeleteClick() {
-    if (currentTask.id < 1) {
-      return;
-    }
-    const taskToDelete = currentTask;
-    JSON.stringify(taskToDelete);
-    deleteTask(currentTask.id)
-      .then(updateTaskList(taskToDelete, !taskCreate, taskDelete));
-  }
 
   return (
     <div className="TaskComponent">
@@ -90,7 +62,8 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         onChange={handleNameChange}
         onBlur={handleNameBlur}
         onFocus={handleNameFocus}
-        placeholder="Task name"
+        placeholder="Start typing to create new task"
+        maxLength="30"
       />
       <textarea
         className="task-description"
@@ -101,37 +74,6 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         onFocus={handleTextFocus}
         onBlur={handleTextBlur}
       />
-      <div className="ButtonBar">
-        <button type="button" className="TaskComponentButton" disabled={currentTask.id < 1} onClick={handleDoneClick}>
-          {currentTask.isCompleted !== '0'
-            ? <img className="doneElementImage" src={done} alt="Done" />
-            : <img className="doneToCompleteElementImage" src={done} alt="Done" />}
-        </button>
-        <button
-          type="button"
-          className="TaskComponentButton"
-          disabled={currentTask.id < 1}
-          onClick={handleFailedClick}
-        >
-          <img className="crossElementImage" src={cross} alt="Fail" />
-        </button>
-        <button
-          type="button"
-          className="TaskComponentButton"
-          disabled={currentTask.id < 1}
-          onClick={handleOptionsClick}
-        >
-          <img className="dotsElementImage" src={dots} alt="Options" />
-        </button>
-        <button
-          type="button"
-          className="TaskComponentDeleteButton"
-          onClick={handleDeleteClick}
-          disabled={currentTask.id < 1}
-        >
-          Delete
-        </button>
-      </div>
     </div>
   );
 }

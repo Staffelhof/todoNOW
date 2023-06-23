@@ -1,10 +1,6 @@
-.App {
-  text-align: center;
-}
-
 @font-face {
   font-family: "Inter";
-  src: url("./Inter-Regular.ttf");
+  src: url("../assets/fonts/Inter-Regular.ttf");
 }
 
 body {
@@ -90,7 +86,6 @@ body {
 
 .task-line-text {
   resize: none;
-  background: #FFA800;
   border: none;
 
   white-space: nowrap;
@@ -104,6 +99,13 @@ body {
 
   color: #DC1C1C;
 }
+.newTask {
+  color: #FFFFFF;
+}
+.doneTask {
+  text-decoration: line-through;
+  text-decoration-color: black;
+}
 
 .TaskComponent {
   grid-area: C;
@@ -115,40 +117,6 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   row-gap: 10px;
-}
-
-.TaskComponentButton {
-  flex: 1 0 15%;
-  border: none;
-  background-color: transparent;
-  background-image: url("checkBox.png");
-  background-size: 40px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-
-}
-.TaskComponentDeleteButton {
-  flex: 1 0 45%;
-  border: none;
-  background-color: transparent;
-  background-image: url("rectangle.png");
-  background-size: 70px;
-  width: 70px;
-  height: 65px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  font-family: 'Inter', serif;
-  font-weight: 700;
-  font-size: 20px;
-
-}
-.ButtonBar {
-  display: flex;
-  width: 100%;
 }
 
 .TaskTextElement {
@@ -182,7 +150,7 @@ body {
   font-weight: 700;
   font-size: 25px;
   line-height: 30px;
-  height: 60%;
+  height: 70%;
   color: #000000;
   outline: none;
 }
@@ -252,6 +220,7 @@ body {
 }
 .deleteButton:disabled {
   visibility: hidden;
+  width: 30px;
 }
 .deleteImage {
   width: 30px;
@@ -259,7 +228,7 @@ body {
 .doneButton {
   border: none;
   background-color: transparent;
-  background-image: url("checkBox.png");
+  background-image: url("../assets/images/checkBox.png");
   background-size: 30px;
   width: 30px;
   height: 30px;
@@ -269,7 +238,7 @@ body {
   flex-direction: column-reverse;
 }
 .doneButton:disabled {
-  visibility: hidden;
+  background-image: url("../assets/images/addTask.png");
 }
 .doneImage {
   width: 30px;

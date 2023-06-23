@@ -1,11 +1,11 @@
-import './App.css';
+import './css/App.css';
 import { useEffect, useState } from 'react';
-import Notes from './Notes';
-import TaskList from './TaskList';
-import TaskElem from './TaskElem';
+import Notes from './components/notes/Notes';
+import TaskList from './components/taskList/TaskList';
+import TaskElem from './components/taskElement/TaskElem';
 import {
   getAllTasks,
-} from './fetchFacade';
+} from './utility/fetchFacade';
 
 const emptyTask = {
   id: '-1', name: '', text: '', isCompleted: '0',
