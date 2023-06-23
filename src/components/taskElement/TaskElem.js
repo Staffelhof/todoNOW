@@ -4,55 +4,50 @@ import taskShape from '../../utility/shape';
 import { putTask, updateTask } from '../../utility/fetchFacade';
 
 const taskCreate = true;
-const taskDelete = true;
 export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }) {
   const nameRef = useRef('');
   const textRef = useRef('');
 
   function changeHandler(obj) {
     setCurrentTask({ ...currentTask, ...obj });
-    updateTaskList({ ...currentTask, ...obj }, !taskCreate, !taskDelete);
+    updateTaskList({ ...currentTask, ...obj });
   }
-  function handleTextChange(e) {
+  const handleTextChange = (e) => {
     changeHandler({ text: e.target.value });
-  }
-  function handleNameChange(e) {
+  };
+  const handleNameChange = (e) => {
     changeHandler({ name: e.target.value });
-  }
-  function handleNameBlur() {
+  };
+  const handleNameBlur = () => {
     if (nameRef.current === currentTask.name) {
       return;
     }
-    if (currentTask.id < 1) {
+    if (!currentTask.id) {
       const newTask = { ...currentTask, startTime: new Date().toISOString() };
       putTask(newTask)
         .then((res) => ({ ...newTask, id: `${res}` }))
         .then((res) => {
-          setCurrentTask(res);
+          updateTaskList(res, taskCreate);
           return res;
         })
-        .then((res) => updateTaskList(res, taskCreate, !taskDelete));
+        .then((res) => setCurrentTask(res));
     } else {
       updateTask(currentTask.id, currentTask);
     }
-  }
+  };
 
-  function handleTextBlur() {
+  const handleTextBlur = () => {
     if (textRef.current === currentTask.text) {
       return;
     }
-    if (currentTask.id < 1 && currentTask.text !== '') {
-      alert('Set name of the task first');
-    } else {
-      updateTask(currentTask.id, currentTask);
-    }
-  }
-  function handleNameFocus() {
+    updateTask(currentTask.id, currentTask);
+  };
+  const handleNameFocus = () => {
     nameRef.current = currentTask.name;
-  }
-  function handleTextFocus() {
+  };
+  const handleTextFocus = () => {
     textRef.current = currentTask.text;
-  }
+  };
 
   return (
     <div className="task-component">
@@ -69,7 +64,7 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         className="task-component-text task-component-description text-style"
         key={currentTask.id}
         value={currentTask.text}
-        disabled={currentTask.id < 1}
+        disabled={!currentTask.id}
         onChange={handleTextChange}
         onFocus={handleTextFocus}
         onBlur={handleTextBlur}
