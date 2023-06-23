@@ -55,9 +55,9 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
   }
 
   return (
-    <div className="TaskComponent">
+    <div className="task-component">
       <input
-        className="TaskTextElement task-name-title"
+        className="task-component-text task-component-title text-style"
         value={currentTask.name || ''}
         onChange={handleNameChange}
         onBlur={handleNameBlur}
@@ -66,7 +66,7 @@ export default function TaskElem({ currentTask, setCurrentTask, updateTaskList }
         maxLength="30"
       />
       <textarea
-        className="task-description"
+        className="task-component-text task-component-description text-style"
         key={currentTask.id}
         value={currentTask.text}
         disabled={currentTask.id < 1}
