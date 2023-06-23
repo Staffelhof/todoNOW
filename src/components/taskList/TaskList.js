@@ -17,7 +17,7 @@ export default function TaskList({
     deleteTask(elemet.id).then(setTasklist(tasklist.filter((el) => el.id !== elemet.id)));
   };
   const handleDoneClick = (event, elemet) => {
-    const updatedTask = { ...elemet, isCompleted: elemet.isCompleted === '0' ? '1' : '0' };
+    const updatedTask = { ...elemet, isCompleted: !elemet.isCompleted ? 1 : 0 };
     updateTask(elemet.id)
       .then(setTasklist(tasklist.map((el) => (el.id === updatedTask.id ? updatedTask : el))));
     if (elemet.id === currentTask.id) {
@@ -36,17 +36,17 @@ export default function TaskList({
             <div className="task-list-line">
               <button
                 className="task-list-done-button"
-                disabled={el.id < 1}
+                disabled={!el.id}
                 type="button"
                 onClick={(event) => handleDoneClick(event, el)}
               >
-                {el.isCompleted !== '0'
+                {el.isCompleted
                   ? <img className="task-list-button-image" src={done} alt="Done" />
                   : ''}
               </button>
               <div
                 role="button"
-                className={`task-line-text text-style ${el.id < 1 ? 'new-task' : ''} ${el.isCompleted !== '0' ? 'done-task' : ''}`}
+                className={`task-line-text text-style ${el.id < 1 ? 'new-task' : ''} ${el.isCompleted ? 'done-task' : ''}`}
                 tabIndex={0}
                 key={el.id}
                 onClick={(event) => handleClick(event, el)}
@@ -57,10 +57,10 @@ export default function TaskList({
               <button
                 className="task-list-delete-button"
                 type="button"
-                disabled={el.id < 1}
+                disabled={!el.id}
                 onClick={(event) => handleDeleteClick(event, el)}
               >
-                {el.id < 1 ? '' : <img className="task-list-button-image" src={trash} alt="delete" />}
+                {el.id ? <img className="task-list-button-image" src={trash} alt="delete" /> : '' }
               </button>
             </div>
             <div><hr className="hr-line" /></div>

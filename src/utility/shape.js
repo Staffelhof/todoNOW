@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
 const taskShape = () => ({
-  id: PropTypes.string,
+  id: PropTypes.number,
   name: PropTypes.string,
   text: PropTypes.string,
-  isCompleted: PropTypes.string,
+  isCompleted: PropTypes.number,
   startTime: PropTypes.string,
   endTime: PropTypes.string,
 });

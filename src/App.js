@@ -8,8 +8,14 @@ import {
 } from './utility/fetchFacade';
 
 const emptyTask = {
-  id: '-1', name: '', text: '', isCompleted: '0',
+  id: 0, name: '', text: '', isCompleted: 0,
 };
+
+const normalize = (obj) => ({
+  ...obj,
+  id: parseInt(obj.id, 10),
+  isCompleted: parseInt(obj.isCompleted, 10),
+});
 
 function App() {
   const [taskList, setTaskList] = useState([]);
@@ -17,9 +23,10 @@ function App() {
 
   useEffect(() => {
     const dataFetch = async () => {
-      getAllTasks.then((res) => setTaskList([...res, emptyTask]));
+      getAllTasks
+        .then((res) => res.map((el) => normalize(el)))
+        .then((res) => setTaskList([...res, emptyTask]));
     };
-
     dataFetch();
   }, []);
 
@@ -36,17 +43,13 @@ function App() {
       <TaskElem
         currentTask={currentTask}
         setCurrentTask={(task) => setCurrentTask(task)}
-        updateTaskList={(task, isNew, isDelete) => {
-          const taskId = isNew ? '-1' : task.id;
-          const changedList = isDelete
-            ? taskList.filter((el) => el.id !== task.id)
-            : taskList.map((el) => (el.id === taskId ? task : el));
-          setTaskList(changedList);
+        updateTaskList={(task, isNew = false) => {
+          const taskId = isNew ? 0 : task.id;
+          const changedList = taskList.map((el) => (el.id === taskId ? task : el));
           if (isNew) {
-            setTaskList([...changedList, emptyTask]);
-          } if (isDelete) {
-            setCurrentTask(emptyTask);
+            changedList.push(emptyTask);
           }
+          setTaskList(changedList);
         }}
       />
       <Notes />
