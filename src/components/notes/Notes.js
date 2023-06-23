@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   deleteNote, getAllNotes, putNote, updateNote,
-} from './fetchFacade';
+} from '../../utility/fetchFacade';
 
 export default function Notes() {
   const elem = useRef('');
@@ -62,18 +62,18 @@ export default function Notes() {
   }
 
   return (
-    <div className="NoteComponent">
+    <div className="note-component">
       <button
-        className="NoteButton"
+        className="note-component-nav-button"
         type="button"
         onClick={() => handlePreviousButton(getIndex())}
         disabled={getIndex() < 1}
       >
         &lt;
       </button>
-      <div className="NoteComponentName">Reminder</div>
+      <div className="note-component-name text-style">Reminder</div>
       <button
-        className="NoteButton"
+        className="note-component-nav-button"
         type="button"
         onClick={() => handleNextButton(getIndex())}
         disabled={getIndex() > noteList.length - 1}
@@ -81,7 +81,7 @@ export default function Notes() {
         &gt;
       </button>
       <textarea
-        className="Note"
+        className="note-component-text text-style"
         key={noteElement.id}
         value={noteElement.note}
         onChange={handleChange}

@@ -1,0 +1,231 @@
+@font-face {
+    font-family: "Inter";
+    src: url("../assets/fonts/Inter-Regular.ttf");
+}
+
+body {
+    background-color: #47ba81;
+    font-family: 'Inter', sans-serif;
+}
+
+.text-style {
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+}
+
+.main {
+    display: grid;
+    gap: 25px;
+    grid-template-areas:
+        "todo now"
+        "task-list task-element"
+        "task-list note-element";
+    grid-template-columns: 525px 1fr;
+    grid-template-rows: 30px 350px 350px;
+    margin: 40px auto;
+    width: 1075px;
+}
+
+.to-do {
+    color: #FFFFFF;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
+    grid-area: todo;
+    line-height: 42px;
+    text-align: right;
+}
+
+.now {
+    color: #FFFFFF;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
+    grid-area: now;
+
+    line-height: 42px;
+}
+
+/* Task list component */
+.task-list {
+    background: #FFA800;
+    border-radius: 18px;
+    grid-area: task-list;
+    overflow: auto;
+}
+
+.task-list::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+.task-list-title {
+    color: #FFFFFF;
+    margin: 20px;
+    text-align: center;
+}
+
+.task-list-lines-block {
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.task-list-line {
+    align-items: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: -5px;
+    width: 500px;
+}
+
+.task-line-text {
+    border: none;
+    color: #DC1C1C;
+    width: 350px;
+}
+
+.hr-line {
+    border: 1px solid #000000;
+    position: relative;
+    width: 400px;
+}
+
+.new-task {
+    color: #FFFFFF;
+}
+
+.done-task {
+    text-decoration: line-through;
+    text-decoration-color: black;
+}
+
+.task-list-delete-button {
+    background-color: transparent;
+    border: none;
+}
+
+.task-list-delete-button:disabled {
+    visibility: hidden;
+    width: 30px;
+}
+
+.task-list-button-image {
+    width: 30px;
+}
+
+.task-list-done-button {
+    align-content: flex-start;
+    background-color: transparent;
+    background-image: url("../assets/images/checkBox.png");
+    background-size: 30px;
+    border: none;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    height: 30px;
+    width: 30px;
+}
+
+.task-list-done-button:disabled {
+    background-image: url("../assets/images/addTask.png");
+}
+
+/* Task component */
+.task-component {
+    align-content: flex-start;
+    background: #FFA800;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    grid-area: task-element;
+    justify-content: center;
+    row-gap: 10px;
+}
+
+.task-component-text {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    resize: none;
+    width: 450px;
+}
+
+.task-component-text:focus {
+    outline: none;
+}
+
+.task-component-title {
+    color: #FFFFFF;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.task-component-description {
+    color: #000000;
+    height: 70%;
+    outline: none;
+    resize: none;
+}
+
+.task-component-description::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+/* Note component */
+.note-component {
+    align-content: flex-start;
+    align-items: flex-end;
+    background: #FFA800;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    grid-area: note-element;
+    justify-content: center;
+    row-gap: 15px;
+}
+
+.note-component-name {
+    color: #FFFFFF;
+    flex: 0 1 50%;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.note-component-text {
+    background: transparent;
+    border: 0;
+    height: 250px;
+    resize: none;
+    width: 450px;
+}
+
+.note-component-text::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+.note-component-text:focus {
+    outline: none;
+
+}
+
+.note-component-nav-button {
+    background-color: transparent;
+    border: 0;
+    color: #FFFFFF;
+    font-size: 2em;
+    font-style: normal;
+    text-align: center;
+}
+
+.note-component-nav-button:disabled {
+    color: gray;
+}

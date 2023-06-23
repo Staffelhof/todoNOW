@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import taskShape from './shape';
-import { deleteTask, updateTask } from './fetchFacade';
-import trash from './trash.png';
-import done from './done.png';
+import taskShape from '../../utility/shape';
+import { deleteTask, updateTask } from '../../utility/fetchFacade';
+import trash from '../../assets/images/trash.png';
+import done from '../../assets/images/done.png';
 
 export default function TaskList({
   tasklist, setTasklist, setCurrentTask, currentTask,
@@ -29,24 +29,24 @@ export default function TaskList({
   }
   return (
     <div className="task-list">
-      <div className="task-list-title">Task List</div>
-      <div className="task-lines">
+      <div className="task-list-title text-style">Task List</div>
+      <div className="task-list-lines-block">
         {tasklist.map((el) => (
           <div className="wrapper">
             <div className="task-list-line">
               <button
-                className="doneButton"
+                className="task-list-done-button"
                 disabled={el.id < 1}
                 type="button"
                 onClick={(event) => handleDoneClick(event, el)}
               >
                 {el.isCompleted !== '0'
-                  ? <img className="doneImage" src={done} alt="Done" />
+                  ? <img className="task-list-button-image" src={done} alt="Done" />
                   : ''}
               </button>
               <div
                 role="button"
-                className="task-line-text"
+                className={`task-line-text text-style ${el.id < 1 ? 'new-task' : ''} ${el.isCompleted !== '0' ? 'done-task' : ''}`}
                 tabIndex={0}
                 key={el.id}
                 onClick={(event) => handleClick(event, el)}
@@ -55,12 +55,12 @@ export default function TaskList({
                 {el.name || 'Add new task'}
               </div>
               <button
-                className="deleteButton"
+                className="task-list-delete-button"
                 type="button"
                 disabled={el.id < 1}
                 onClick={(event) => handleDeleteClick(event, el)}
               >
-                {el.id < 1 ? '' : <img className="deleteImage" src={trash} alt="delete" />}
+                {el.id < 1 ? '' : <img className="task-list-button-image" src={trash} alt="delete" />}
               </button>
             </div>
             <div><hr className="hr-line" /></div>

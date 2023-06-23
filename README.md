@@ -10,8 +10,13 @@ express.js, csvdb database
 react.js
 
 Project developed by group №33 of Hexlet College.
-
 ### Start project with full installation:
 ```shell
-git clone https://github.com/Staffelhof/todoNOW.git && cd todoNOW && make presentation
+git clone https://github.com/Staffelhof/todoNOW.git 
+```
+```shell
+cd todoNOW
+```
+```shell
+make presentation
 ```
