@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import Notes from './components/notes/Notes';
 import TaskList from './components/taskList/TaskList';
 import TaskElem from './components/taskElement/TaskElem';
+import palm1 from './assets/images/palm-branch1.png';
+import palm2 from './assets/images/palm-branch2.png';
 import {
   getAllTasks,
 } from './utility/fetchFacade';
@@ -53,6 +55,8 @@ function App() {
         }}
       />
       <Notes />
+      <img className="palm-branch1" src={palm1} alt="palm1" />
+      <img className="palm-branch2" src={palm2} alt="palm2" />
     </div>
   );
 }

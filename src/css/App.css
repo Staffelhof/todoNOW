@@ -27,7 +27,17 @@ body {
     margin: 40px auto;
     width: 1075px;
 }
+.palm-branch1 {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 
+.palm-branch2 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
 .to-do {
     color: #FFFFFF;
     font-size: 35px;
