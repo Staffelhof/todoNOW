@@ -4,7 +4,8 @@
 Makes your work with to-do's and notes easier. Client-server application to make your work comfortable.
 
 ### Table of conents
-* [Project escription](#description)
+* [Project description](#description)
+* [Features](#features)
 * [Installation guide](#installation-guide)
 * [Stack](#stack)
 * [Team](#team)
