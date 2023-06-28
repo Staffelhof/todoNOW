@@ -4,10 +4,13 @@
 Makes your work with to-do's and notes easier. Client-server application to make your work comfortable.
 
 ### Table of conents
+* [Project escription](#description)
 * [Installation guide](#installation-guide)
 * [Stack](#stack)
 * [Team](#team)
 
+### Description
+Your data is securely stored on your private server-application in CSV files, providing you with full control and privacy. Additionally, you have the flexibility to synchronize this data across your devices using any third-party application of your choice.
 
 ### Features
 #### available options with Tasks
@@ -21,7 +24,6 @@ Makes your work with to-do's and notes easier. Client-server application to make
 * delete
 * edit
 
-Your data is securely stored on your private server-application in CSV files, providing you with full control and privacy. Additionally, you have the flexibility to synchronize this data across your devices using any third-party application of your choice.
 
 ### Installation guide:
 ```shell
